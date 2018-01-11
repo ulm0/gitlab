@@ -12,6 +12,7 @@ The GitLab Docker image can be run in multiple ways:
 
 - [Run the image in Docker Engine](#run-the-image)
 - [Install GitLab using docker-compose](#install-gitlab-using-docker-compose)
+
 <!-- - [Install GitLab into a cluster](#install-gitlab-into-a-cluster) -->
 
 ## Prerequisites
@@ -403,9 +404,9 @@ docker exec gitlab update-permissions
 docker restart gitlab
 ```
 
-### Windows/Mac: Error executing action run on resource ruby_block[directory resource: /data/GitLab]
+<!-- ### Windows/Mac: Error executing action run on resource ruby_block[directory resource: /data/GitLab]
 
-<!-- This error occurs when using Docker Toolbox with VirtualBox on Windows or Mac,
+This error occurs when using Docker Toolbox with VirtualBox on Windows or Mac,
 and making use of Docker volumes. The /c/Users volume is mounted as a
 VirtualBox Shared Folder, and does not support the all POSIX filesystem features.
 The directory ownership and permissions cannot be changed without remounting, and
