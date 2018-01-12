@@ -2,6 +2,18 @@
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
 
+# RaspberryPi performance optimization
+## To completely disable prometheus, and all of it's exporters, set to false
+prometheus_monitoring['enable'] = false
+
+## Set Unicorn timeout and lower processes (2 is the lowest allowed at this moment)
+unicorn['worker_timeout'] = 60
+unicorn['worker_processes'] = 2
+
+## Set Sidekiq timeout and lower its concurrency to the lowest allowed
+sidekiq['shutdown_timeout'] = 4
+sidekiq['concurrency'] = 5
+
 # Manage accounts with docker
 manage_accounts['enable'] = false
 
