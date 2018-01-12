@@ -2,9 +2,9 @@
 
 [![pipeline status](https://gitlab.com/ulm0/gitlab/badges/master/pipeline.svg)](https://gitlab.com/ulm0/gitlab/commits/master) [![](https://images.microbadger.com/badges/version/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/) [![Docker Pulls](https://img.shields.io/docker/stars/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://gitlab.com/ulm0/gitlab/blob/master/LICENSE)
 
-GitLab CE is in Docker Hub:
+GitLab CE for ARM is in Docker Hub:
 
-- [GitLab CE Docker image](https://hub.docker.com/r/ulm0/gitlab/)
+- [ulm0/gitlab](https://hub.docker.com/r/ulm0/gitlab/)
 
 The GitLab Docker image is a monolithic image of GitLab running all the necessary services on a single container.
 
