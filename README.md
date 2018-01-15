@@ -1,6 +1,6 @@
 # GitLab Docker image for ARM
 
-[![pipeline status](https://gitlab.com/ulm0/gitlab/badges/master/pipeline.svg)](https://gitlab.com/ulm0/gitlab/commits/master) [![](https://images.microbadger.com/badges/version/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/) [![Docker Pulls](https://img.shields.io/docker/stars/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://gitlab.com/ulm0/gitlab/blob/master/LICENSE)
+[![pipeline status](https://gitlab.com/ulm0/gitlab/badges/master/pipeline.svg)](https://gitlab.com/ulm0/gitlab/commits/master) [![](https://images.microbadger.com/badges/version/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/)
 
 GitLab CE for ARM is in Docker Hub:
 
@@ -20,8 +20,6 @@ The GitLab Docker image can be run in multiple ways:
 ## Prerequisites
 
 Docker installation is required, see the [official installation docs](https://docs.docker.com/engine/installation/).
-
-<!-- **Note:** Using a native Docker install instead of Docker Toolbox is recommended in order to use the persisted volumes -->
 
 ## Run the image
 
@@ -406,21 +404,6 @@ docker exec gitlab update-permissions
 docker restart gitlab
 ```
 
-<!-- ### Windows/Mac: Error executing action run on resource ruby_block[directory resource: /data/GitLab]
-
-This error occurs when using Docker Toolbox with VirtualBox on Windows or Mac,
-and making use of Docker volumes. The /c/Users volume is mounted as a
-VirtualBox Shared Folder, and does not support the all POSIX filesystem features.
-The directory ownership and permissions cannot be changed without remounting, and
-GitLab fails.
-
-Our recommendation is to switch to using the native Docker install for your
-platform, instead of using Docker Toolbox.
-
-If you cannot use the native Docker install (Windows 10 Home Edition, or Windows < 10),
-then an alternative solution is to setup NFS mounts instead of VirtualBox shares for
-Docker Toolbox's boot2docker. -->
-
 [docker compose]: https://docs.docker.com/compose/
 [install-compose]: https://docs.docker.com/compose/install/
 [down-yml]: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/docker/docker-compose.yml
@@ -448,7 +431,7 @@ default:other::r-x
 
 If these are not correct, set them with:
 
-```bash
+```sh
 $ sudo setfacl -mR default:group:docker:rwx /srv/gitlab
 ```
 
