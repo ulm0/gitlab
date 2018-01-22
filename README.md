@@ -1,4 +1,4 @@
-# GitLab Docker image for ARM
+# GitLab CE for ARM
 
 [![pipeline status](https://gitlab.com/ulm0/gitlab/badges/master/pipeline.svg)](https://gitlab.com/ulm0/gitlab/commits/master) [![](https://images.microbadger.com/badges/version/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/ulm0/gitlab.svg)](https://microbadger.com/images/ulm0/gitlab "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/ulm0/gitlab.svg)](https://hub.docker.com/r/ulm0/gitlab/)
 
