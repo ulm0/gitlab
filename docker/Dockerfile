@@ -1,5 +1,5 @@
 FROM resin/rpi-raspbian:jessie
-LABEL maintainer "Mauricio Ugaz <https://gitlab.com/ulm0>"
+LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
 SHELL ["/bin/sh", "-c"],
 

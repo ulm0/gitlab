@@ -406,7 +406,7 @@ docker restart gitlab
 
 [docker compose]: https://docs.docker.com/compose/
 [install-compose]: https://docs.docker.com/compose/install/
-[down-yml]: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/docker/docker-compose.yml
+[down-yml]: docker/docker-compose.yml
 [docker-ports]: https://docs.docker.com/engine/reference/run/#/expose-incoming-ports
 
 ### Linux ACL issues
