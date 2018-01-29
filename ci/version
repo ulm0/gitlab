@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+version=$(cat VERSION || echo dev | sed -e 's/^v//g')
+echo "${version}"

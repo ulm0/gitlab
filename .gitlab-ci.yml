@@ -1,0 +1,23 @@
+stages:
+- image
+
+gitlab:
+  image: klud/docker:17.09.1
+  stage: image
+  services:
+    - klud/docker:17.09.1-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  only:
+    - master
+  tags:
+    - docker
+    - arm
+  script:
+    - apk add --no-cache make bash
+    - make all
+    # - docker build -t ulm0/gitlab -f docker/Dockerfile docker
+    # - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    # - docker push ulm0/gitlab
+    # - docker logout
+    # - docker rmi ulm0/gitlab

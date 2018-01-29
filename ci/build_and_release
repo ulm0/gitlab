@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -eo pipefail
+
+_docker(){
+    docker ${@}
+}
+
+build() {
+    echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
+    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+}
+
+tag() {
+    echo -e "\033[1mTagging image: \033[32m${2}\033[0m"
+    _docker tag "${1}" "${2}"
+}
+
+push() {
+    echo -e "\033[1mPushing image: \033[32m${1}\033[0m"
+    _docker push "${1}"
+}
+
+login() {
+    _docker login --username "${1}" --password "${2}" "${3}"
+}
+
+logout() {
+    _docker logout "${1}"
+}
+
+build "CE_VERSION=${CE_VERSION}" "${IMAGE}:${CE_VERSION}" docker/Dockerfile docker/
+
+tag "${IMAGE}:${CE_VERSION}" "${IMAGE}:latest"
+
+if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
+    tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
+    tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:latest"
+
+    if [[ -n "${CI_REGISTRY_USER}" ]] && [[ -n "${CI_REGISTRY_PASSWORD}" ]]; then
+        login "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
+
+        push "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
+        push "${CI_REGISTRY_IMAGE}:latest"
+
+        logout "${CI_REGISTRY}"
+    fi
+fi
+
+if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
+    login "${DOCKER_HUB_USER}" "${DOCKER_HUB_PASSWORD}"
+
+    push "${IMAGE}:${CE_VERSION}"
+    push "${IMAGE}:latest"
+
+    logout
+fi
