@@ -1,6 +1,8 @@
 FROM resin/rpi-raspbian:jessie
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
+ARG CE_VERSION
+
 SHELL ["/bin/sh", "-c"],
 
 # Install required packages
