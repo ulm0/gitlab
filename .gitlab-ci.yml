@@ -11,13 +11,12 @@ stages:
   tags:
     - docker
     - arm
-  script:
-    - apk add --no-cache make bash
-
+    
 test:
   <<: *sample
   stage: build
   script:
+    - apk add --no-cache make bash
     - make build
 
 release:
@@ -26,4 +25,6 @@ release:
   only:
     - tags
   script:
+    - apk add --no-cache make bash
     - make all
+    
