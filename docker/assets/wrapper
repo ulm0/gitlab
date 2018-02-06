@@ -88,8 +88,8 @@ echo "Configuring GitLab package..."
 /var/lib/dpkg/info/${RELEASE_PACKAGE}.preinst upgrade
 
 # Patch sysctl config
-echo "Patching sysctl config..."
 if [[ -e /opt/gitlab/embedded/cookbooks/package/resources/sysctl.rb ]]; then
+	echo "Patching sysctl config..."
 	sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/package/resources/sysctl.rb
 fi
 
@@ -103,8 +103,8 @@ if [ "${GITLAB_SKIP_PG_UPGRADE}" != true ]; then
 fi
 
 if [ -n "${GITLAB_POST_RECONFIGURE_SCRIPT+x}" ]; then
-  echo "Runnning Post Reconfigure Script..."
-  eval "${GITLAB_POST_RECONFIGURE_SCRIPT}"
+	echo "Runnning Post Reconfigure Script..."
+  	eval "${GITLAB_POST_RECONFIGURE_SCRIPT}"
 fi
 
 # Tail all logs
