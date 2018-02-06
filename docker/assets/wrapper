@@ -90,7 +90,7 @@ echo "Configuring GitLab package..."
 # Patching sysctl config
 echo "Patching sysctl config..."
 if [[ ! -e /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb ]]; then
-	cp /assests/sysctl.rb /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
+	cp /assets/sysctl.rb /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
 	sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
 else
 	sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb

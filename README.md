@@ -14,8 +14,7 @@ The GitLab Docker image can be run in multiple ways:
 
 * [Run the image in Docker Engine](#run-the-image)
 * [Install GitLab using docker-compose](#install-gitlab-using-docker-compose)
-
-<!-- - [Install GitLab into a cluster](#install-gitlab-into-a-cluster) -->
+* [Install GitLab into a cluster](#install-gitlab-into-a-cluster)
 
 ## Prerequisites
 
@@ -374,13 +373,14 @@ Provided you [installed GitLab using docker-compose](#install-gitlab-using-docke
 all you have to do is run `docker-compose pull` and `docker-compose up -d` to
 download a new release and upgrade your GitLab instance.
 
-<!-- ## Install GitLab into a cluster
+## Install GitLab into a cluster
 
 The GitLab Docker images can also be deployed to various container scheduling platforms.
 
-- Kubernetes using the [GitLab Helm Charts](https://docs.gitlab.com/ce/install/kubernetes/).
-- Mesosphere DC/OS using the [DC/OS Package](https://github.com/dcos/examples/tree/master/gitlab/1.8).
-- Docker Cloud using the [docker-compose config](#install-gitlab-using-docker-compose). -->
+* Kubernetes using the [GitLab Helm Charts](https://docs.gitlab.com/ce/install/kubernetes/).
+* Docker Cloud using the [docker-compose config](#install-gitlab-using-docker-compose).
+
+<!-- - Mesosphere DC/OS using the [DC/OS Package](https://github.com/dcos/examples/tree/master/gitlab/1.8). -->
 
 ## Troubleshooting
 
