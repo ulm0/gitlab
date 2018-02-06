@@ -1,23 +1,29 @@
 stages:
-- image
+- build
+- release
 
-gitlab:
-  image: klud/docker:17.09.1
-  stage: image
+.sample: &sample
+  image: klud/docker:17.12
   services:
-    - klud/docker:17.09.1-dind
+    - klud/docker:17.12-dind
   variables:
     DOCKER_DRIVER: overlay2
-  only:
-    - master
   tags:
     - docker
     - arm
   script:
     - apk add --no-cache make bash
+
+test:
+  <<: *sample
+  stage: build
+  script:
+    - make build
+
+release:
+  <<: *sample
+  stage: release
+  only:
+    - tags
+  script:
     - make all
-    # - docker build -t ulm0/gitlab -f docker/Dockerfile docker
-    # - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    # - docker push ulm0/gitlab
-    # - docker logout
-    # - docker rmi ulm0/gitlab

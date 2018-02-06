@@ -25,6 +25,9 @@ sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERN
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/show_config.rb
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/config.rb
 
+# Patch sysctl action for RPi image
+# sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
+
 # Create groups
 groupadd -g 998 git
 groupadd -g 999 gitlab-www

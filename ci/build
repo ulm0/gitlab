@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eo pipefail
+
+_docker(){
+    docker ${@}
+}
+
+build() {
+    echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
+    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+}
+
+build "CE_VERSION=${CE_VERSION}" "${IMAGE}:${CE_VERSION}" docker/Dockerfile docker/

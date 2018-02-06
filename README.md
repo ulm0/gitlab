@@ -12,8 +12,8 @@ GitLab only offers the Community Edition for Raspbery Pi, the Docker image is ba
 
 The GitLab Docker image can be run in multiple ways:
 
-- [Run the image in Docker Engine](#run-the-image)
-- [Install GitLab using docker-compose](#install-gitlab-using-docker-compose)
+* [Run the image in Docker Engine](#run-the-image)
+* [Install GitLab using docker-compose](#install-gitlab-using-docker-compose)
 
 <!-- - [Install GitLab into a cluster](#install-gitlab-into-a-cluster) -->
 
@@ -383,6 +383,23 @@ The GitLab Docker images can also be deployed to various container scheduling pl
 - Docker Cloud using the [docker-compose config](#install-gitlab-using-docker-compose). -->
 
 ## Troubleshooting
+
+### Sysctl tunning
+
+Running the image on a Raspbery Pi 3 or any other ARM board might require some `sysctl` values in order for it to run properly and have a good performance.
+
+All you need to is add the following at the end of `/etc/sysctl.conf`:
+
+```sh
+kernel.sem = 250 32000 32 262
+kernel.shmall = 1048575
+kernel.shmmax = 4294967295
+net.core.somaxconn = 1024
+```
+
+It can be done with `nano` or `vim` (e.g. `sudo nano /etc/sysctl.conf`).
+
+Once that is done, these values need to loaded to the system, you can do so by running `cat /etc/sysctl.conf /etc/sysctl.d/*.conf  | sudo sysctl -e -p -` and the host will be ready to run the GitLab docker image.
 
 ### 500 Internal Error
 
