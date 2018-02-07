@@ -24,7 +24,9 @@ logout() {
     _docker logout "${1}"
 }
 
-tag "${IMAGE}:${CE_VERSION}" "${IMAGE}:latest"
+if [[ "${CI_COMMIT_REF_NAME}" == "${CE_VERSION}" ]]; then
+    tag "${IMAGE}:${CE_TAG}" "${IMAGE}:latest"
+fi
 
 # if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
 #     tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
@@ -43,8 +45,11 @@ tag "${IMAGE}:${CE_VERSION}" "${IMAGE}:latest"
 if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
     login "${DOCKER_HUB_USER}" "${DOCKER_HUB_PASSWORD}"
 
-    push "${IMAGE}:${CE_VERSION}"
-    push "${IMAGE}:latest"
+    push "${IMAGE}:${CE_TAG}"
+
+    if [[ "${CI_COMMIT_REF_NAME}" == "${CE_VERSION}" ]]; then
+        push "${IMAGE}:latest"
+    fi
 
     logout
 fi

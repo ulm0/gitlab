@@ -30,6 +30,10 @@ RUN /assets/setup
 # Allow to access embedded tools
 ENV PATH /opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:$PATH
 
+# Patch mattermost
+RUN rm -f /opt/gitlab/embedded/bin/mattermost
+COPY mattermost /opt/gitlab/embedded/bin/mattermost
+
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 
