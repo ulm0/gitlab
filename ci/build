@@ -11,4 +11,4 @@ build() {
     _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
 
-build "CE_VERSION=${CE_VERSION}" "${IMAGE}:${CE_VERSION}" docker/Dockerfile docker/
+build "CE_VERSION=${CE_VERSION}" "${IMAGE}:${CE_TAG}" docker/Dockerfile docker/
