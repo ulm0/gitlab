@@ -1,8 +1,9 @@
-# Docker options
+# Docker options for ARM Image
+
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
+postgresql['autovacuum_max_workers'] = "2"
 
-# RaspberryPi performance optimization
 ## To completely disable prometheus, and all of it's exporters, set to false
 prometheus_monitoring['enable'] = false
 
@@ -12,10 +13,14 @@ unicorn['worker_processes'] = 2
 
 ## Set Sidekiq timeout and lower its concurrency to the lowest allowed
 sidekiq['shutdown_timeout'] = 4
-sidekiq['concurrency'] = 5
+sidekiq['concurrency'] = 4
 
 # Manage accounts with docker
 manage_accounts['enable'] = false
+
+# Nginx settings
+nginx['worker_processes'] = 2
+nginx['worker_connections'] = 2048
 
 # Get hostname from shell
 host = `hostname`.strip
