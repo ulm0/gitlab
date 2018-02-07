@@ -10,7 +10,9 @@ The GitLab Docker image is a monolithic image of GitLab running all the necessar
 
 GitLab only offers the Community Edition for Raspbery Pi, the Docker image is based on this one; in addition, only stable builds are containerized.
 
-The GitLab Docker image can be run in multiple ways:
+**NOTE**: This image builds and replaces the Mattermost binary delivered with the Omnibus package, which is only for AMD64 as stated in the [Docs](https://docs.gitlab.com/omnibus/gitlab-mattermost/#pre-requisite). The binary bundled within this image is built for ARM, feel to use Mattermost as you please.
+
+## The GitLab Docker image can be run in multiple ways:
 
 * [Run the image in Docker Engine](#run-the-image)
 * [Install GitLab using docker-compose](#install-gitlab-using-docker-compose)
