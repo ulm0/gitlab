@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:jessie
+FROM ubuntu:16.04
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
 ARG CE_VERSION
