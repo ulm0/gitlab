@@ -29,11 +29,11 @@ version: FORCE
 	@echo Brought to you by ulm0
 	@echo "---"
 
-build:
+build: version
 	# Build the GitLab image
 	@./ci/build
 
-push:
+push: version
 	# Push image to Docker Hub
 	@./ci/release
 

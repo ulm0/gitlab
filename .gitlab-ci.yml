@@ -62,7 +62,6 @@ gitlab:
     - apk add --no-cache make bash
     - cp binaries/platform docker/mattermost
     - chown 0:0 docker/mattermost
-    - make version
     - make build
   dependencies:
     - mattermost
@@ -74,7 +73,6 @@ registry:
     - tags
   script:
     - apk add --no-cache make bash
-    - make version
-    - make relase
+    - make push
   dependencies:
     - gitlab
