@@ -1,8 +1,6 @@
 FROM ubuntu:16.04
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
-ARG CE_VERSION
-
 SHELL ["/bin/sh", "-c"],
 
 # Install required packages
@@ -16,11 +14,10 @@ RUN apt-get update -q \
       tzdata \
       nano \
     && rm -rf /var/lib/apt/lists/* \
-    && sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd
-
-# Remove MOTD
-RUN rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic
-RUN ln -fs /dev/null /run/motd.dynamic
+    && sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd \
+    # Remove MOTD
+    rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic \
+    ln -fs /dev/null /run/motd.dynamic
 
 # Copy assets
 COPY RELEASE /

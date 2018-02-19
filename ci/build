@@ -7,8 +7,12 @@ _docker(){
 }
 
 build() {
-    echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
-    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+    echo -e "\033[1mBuilding image: \033[32m${1}\033[0m"
+    _docker build -t "${1}" -f "${2}" "${3}"
 }
 
-build "CE_VERSION=${CE_VERSION}" "${IMAGE}:${CE_TAG}" docker/Dockerfile docker/
+# Set the version to install
+sed -i -e 's/CE_VERSION/'"$CE_VERSION"'/g' docker/RELEASE
+
+# Build the actual image
+build "${IMAGE}:${CE_TAG}" docker/Dockerfile docker/
