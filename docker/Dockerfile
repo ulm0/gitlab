@@ -16,8 +16,8 @@ RUN apt-get update -q \
     && rm -rf /var/lib/apt/lists/* \
     && sed 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' -i /etc/pam.d/sshd \
     # Remove MOTD
-    rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic \
-    ln -fs /dev/null /run/motd.dynamic
+    && rm -rf /etc/update-motd.d /etc/motd /etc/motd.dynamic \
+    && ln -fs /dev/null /run/motd.dynamic
 
 # Copy assets
 COPY RELEASE /
