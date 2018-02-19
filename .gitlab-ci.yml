@@ -1,5 +1,5 @@
 stages:
-- binary
+- bin
 - build
 - release
 
@@ -15,7 +15,7 @@ stages:
 
 mattermost:
   image: golang:1.9-alpine
-  stage: binary
+  stage: bin
   tags:
     - amd64
   variables:
@@ -53,15 +53,28 @@ test:
   dependencies:
     - mattermost
 
-release:
+image:
   <<: *sample
-  stage: release
+  stage: build
   only:
     - tags
   script:
     - apk add --no-cache make bash
     - cp binaries/platform docker/mattermost
     - chown 0:0 docker/mattermost
-    - make all
+    - make version
+    - make build
   dependencies:
     - mattermost
+
+registry:
+  <<: *sample
+  stage: release
+  only:
+    - tags
+  script:
+    - apk add --no-cache make bash
+    - make version
+    - make relase
+  dependencies:
+    - image
