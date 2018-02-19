@@ -17,7 +17,7 @@ mattermost:
   image: golang:1.9-alpine
   stage: bin
   tags:
-    - amd64
+    - docker
   variables:
     BUILD_DATE: $(date -u)
     BUILD_HASH: $CI_COMMIT_SHA
