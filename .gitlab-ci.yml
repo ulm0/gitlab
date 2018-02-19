@@ -53,7 +53,7 @@ test:
   dependencies:
     - mattermost
 
-image:
+gitlab:
   <<: *sample
   stage: build
   only:
@@ -77,4 +77,4 @@ registry:
     - make version
     - make relase
   dependencies:
-    - image
+    - gitlab
