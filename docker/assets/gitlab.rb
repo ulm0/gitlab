@@ -1,5 +1,9 @@
 # Docker options for ARM Image
 
+# Set the internal API URL
+# fixes https://gitlab.com/gitlab-org/gitlab-ce/issues/29870
+gitlab_rails['internal_api_url'] = 'http://localhost:8080/'
+
 ## Prevent Postgres from trying to allocate 25% of total memory
 postgresql['shared_buffers'] = '1MB'
 postgresql['autovacuum_max_workers'] = "2"
