@@ -1,4 +1,5 @@
-FROM ubuntu:16.04
+# FROM ubuntu:16.04
+FROM resin/armv7hf-debian:jessie
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
 SHELL ["/bin/sh", "-c"],

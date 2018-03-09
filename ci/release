@@ -17,7 +17,7 @@ push() {
 }
 
 login() {
-    _docker login --username "${1}" --password "${2}" "${3}"
+    echo "${2}" | awk '{print $0}' | _docker login --username "${1}" --password-stdin "${3}"
 }
 
 logout() {
@@ -28,19 +28,19 @@ if [[ "${CI_COMMIT_REF_NAME}" == "${CE_VERSION}" ]]; then
     tag "${IMAGE}:${CE_TAG}" "${IMAGE}:latest"
 fi
 
-# if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
-#     tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
-#     tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:latest"
+if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
+    tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
+    tag "${IMAGE}:${CE_VERSION}" "${CI_REGISTRY_IMAGE}:latest"
 
-#     if [[ -n "${CI_REGISTRY_USER}" ]] && [[ -n "${CI_REGISTRY_PASSWORD}" ]]; then
-#         login "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
+    if [[ -n "${CI_REGISTRY_USER}" ]] && [[ -n "${CI_REGISTRY_PASSWORD}" ]]; then
+        login "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
 
-#         push "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
-#         push "${CI_REGISTRY_IMAGE}:latest"
+        push "${CI_REGISTRY_IMAGE}:${CE_VERSION}"
+        push "${CI_REGISTRY_IMAGE}:latest"
 
-#         logout "${CI_REGISTRY}"
-#     fi
-# fi
+        logout "${CI_REGISTRY}"
+    fi
+fi
 
 if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
     login "${DOCKER_HUB_USER}" "${DOCKER_HUB_PASSWORD}"
