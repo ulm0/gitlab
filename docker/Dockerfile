@@ -1,5 +1,6 @@
-# FROM ubuntu:16.04
-FROM resin/armv7hf-debian:jessie
+# FROM resin/armv7hf-debian:jessie
+FROM registry.gitlab.com/ulm0/ubuntu:16.04-arm
+
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
 SHELL ["/bin/sh", "-c"],
