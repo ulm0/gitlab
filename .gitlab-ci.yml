@@ -1,17 +1,21 @@
 stages:
 - bin
-- build
-- release
+- images
+# - release
 
-.sample: &sample
-  image: klud/docker:17.12
+.sampleTemplate: &sampleJob
+  # image: klud/docker:17.12
+  image: docker:17.12
   services:
-    - klud/docker:17.12-dind
+    - docker:17.12-dind
+    # - klud/docker:17.12-dind
   variables:
     DOCKER_DRIVER: overlay2
   tags:
     - docker
-    - arm
+    # - arm
+  dependencies:
+    - mattermost
 
 mattermost:
   image: golang:1.9-alpine
@@ -27,52 +31,39 @@ mattermost:
     GOARM: 6
   script:
     - apk add --no-cache git build-base file
-    - go get -d github.com/mattermost/mattermost-server/cmd/platform
-    - cd /go/src/github.com/mattermost/mattermost-server/cmd/platform
+    - go get -d -v github.com/mattermost/mattermost-server
+    - cd /go/src/github.com/mattermost/mattermost-server
     - go build -a -ldflags="-s -w" -installsuffix cgo
-    - file platform
+    - file mattermost-server
     - cd -
     - mkdir binaries
-    - cp /go/src/github.com/mattermost/mattermost-server/cmd/platform/platform binaries/platform
+    - cp /go/src/github.com/mattermost/mattermost-server/mattermost-server binaries/mattermost
   artifacts:
     paths:
-      - binaries/platform
+      - binaries/mattermost
 
 test:
-  <<: *sample
-  stage: build
+  <<: *sampleJob
+  stage: images
   only:
     - branches
   script:
     - apk add --no-cache make bash
-    - cp binaries/platform docker/mattermost
+    - cp binaries/mattermost docker/mattermost
     - chown 0:0 docker/mattermost
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - make build
   when: manual
   allow_failure: true
-  dependencies:
-    - mattermost
 
 gitlab:
-  <<: *sample
-  stage: build
+  <<: *sampleJob
+  stage: images
   only:
     - tags
   script:
     - apk add --no-cache make bash
-    - cp binaries/platform docker/mattermost
+    - cp binaries/mattermost docker/mattermost
     - chown 0:0 docker/mattermost
-    - make build
-  dependencies:
-    - mattermost
-
-registry:
-  <<: *sample
-  stage: release
-  only:
-    - tags
-  script:
-    - apk add --no-cache make bash
-    - make push
-  dependencies:
-    - gitlab
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - make all
