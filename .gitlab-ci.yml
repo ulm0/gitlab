@@ -1,19 +1,16 @@
 stages:
 - bin
 - images
-# - release
 
-.sampleTemplate: &sampleJob
-  # image: klud/docker:17.12
+.img: &imgJob
   image: docker:17.12
   services:
     - docker:17.12-dind
-    # - klud/docker:17.12-dind
+  stage: images
   variables:
     DOCKER_DRIVER: overlay2
   tags:
     - docker
-    # - arm
   dependencies:
     - mattermost
 
@@ -43,8 +40,7 @@ mattermost:
       - binaries/mattermost
 
 test:
-  <<: *sampleJob
-  stage: images
+  <<: *imgJob
   only:
     - branches
   script:
@@ -57,8 +53,7 @@ test:
   allow_failure: true
 
 gitlab:
-  <<: *sampleJob
-  stage: images
+  <<: *imgJob
   only:
     - tags
   script:
