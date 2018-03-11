@@ -1,13 +1,12 @@
 # FROM resin/armv7hf-debian:jessie
 FROM registry.gitlab.com/ulm0/ubuntu:16.04-arm
-
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 
 SHELL ["/bin/sh", "-c"],
 
 # Install required packages
-RUN apt-get update -q \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+RUN apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
       ca-certificates \
       openssh-server \
       wget \

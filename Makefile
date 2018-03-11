@@ -33,8 +33,20 @@ build: version
 	# Build the GitLab image
 	@./ci/build
 
-push: version
-	# Push image to Docker Hub
+save:
+	# Save the image for patching
+	@./ci/save
+
+patch: save
+	# Patch image architecture
+	@./ci/patch
+
+load: patch
+	# Load modified image
+	@./ci/load
+
+push:
+	# Push image to Registries
 	@./ci/release
 
 FORCE:

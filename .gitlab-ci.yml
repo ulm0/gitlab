@@ -1,12 +1,14 @@
 stages:
 - bin
-- images
+- build
+- patch
+- push
 
 .img: &imgJob
   image: docker:17.12
   services:
     - docker:17.12-dind
-  stage: images
+  stage: build
   variables:
     DOCKER_DRIVER: overlay2
   tags:
@@ -33,11 +35,11 @@ mattermost:
     - go build -a -ldflags="-s -w" -installsuffix cgo
     - file mattermost-server
     - cd -
-    - mkdir binaries
-    - cp /go/src/github.com/mattermost/mattermost-server/mattermost-server binaries/mattermost
+    - mkdir utils
+    - cp /go/src/github.com/mattermost/mattermost-server/mattermost-server utils/mattermost
   artifacts:
     paths:
-      - binaries/mattermost
+      - utils/mattermost
 
 test:
   <<: *imgJob
@@ -45,7 +47,7 @@ test:
     - branches
   script:
     - apk add --no-cache make bash
-    - cp binaries/mattermost docker/mattermost
+    - cp utils/mattermost docker/mattermost
     - chown 0:0 docker/mattermost
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - make build
@@ -58,7 +60,9 @@ gitlab:
     - tags
   script:
     - apk add --no-cache make bash
-    - cp binaries/mattermost docker/mattermost
+    - cp utils/mattermost docker/mattermost
     - chown 0:0 docker/mattermost
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-    - make all
+    - make build
+    - make load
+    - make push
