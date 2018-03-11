@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -eo pipefail
+
+_sed(){
+    sed ${@}
+}
+
+_tar(){
+    tar ${@}
+}
+
+ext(){
+    echo -e "\033[1mExtracting: \033[32m${1}\033[0m"
+    _tar xf "${1}"
+}
+
+patch(){
+    echo -e "\033[1mPatching: \033[32m"${IMAGE}:${CE_TAG}"\033[0m"
+    _sed -i -e 's/amd64/arm/g' $1.json
+}
+
+pku(){
+    echo -e "\033[1mArchiving: \033[32m${1}\033[0m"
+    _tar cf "${1}" "${2}"
+}
+
+export CURRENT_HASH=$(cat utils/image_hash)
+
+mkdir gitlab
+mv utils/gitlab.tar gitlab/
+cd gitlab
+ext gitlab.tar
+patch "$CURRENT_HASH"
+rm gitlab.tar
+pku gitlab.tar .
+mv gitlab.tar ../utils/
