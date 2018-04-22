@@ -24,7 +24,7 @@ mattermost:
   variables:
     BUILD_DATE: $(date -u)
     BUILD_HASH: $CI_COMMIT_SHA
-    BUILD_NUMBER: 4.7.0
+    BUILD_NUMBER: 4.8.1
     CGO_ENABLED: 0
     GOARCH: arm
     GOARM: 6
