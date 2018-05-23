@@ -32,13 +32,13 @@ mattermost:
     GOARM: 6
   script:
     - apk add --no-cache git build-base file
-    - go get -d -v github.com/mattermost/mattermost-server
-    - cd /go/src/github.com/mattermost/mattermost-server
+    - go get -d -v github.com/mattermost/mattermost-server/cmd/mattermost
+    - cd /go/src/github.com/mattermost/mattermost-server/cmd/mattermost
     - go build -a -ldflags="-s -w" -installsuffix cgo
-    - file mattermost-server
+    - file mattermost
     - cd -
     - mkdir utils
-    - cp /go/src/github.com/mattermost/mattermost-server/mattermost-server utils/mattermost
+    - cp /go/src/github.com/mattermost/mattermost-server/cmd/mattermost/mattermost utils/mattermost
   artifacts:
     paths:
       - utils/mattermost
