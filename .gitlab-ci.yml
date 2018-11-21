@@ -11,7 +11,9 @@ stages:
   tags:
     - docker
   before_script:
+    - set -eux
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - mkdir utils
 
 test:
   extends: .imgJob
