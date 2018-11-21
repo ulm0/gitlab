@@ -14,7 +14,7 @@ The GitLab Docker image is a monolithic image of GitLab running all the necessar
 
 * This image provides default settings for it to work properly on ARM devices, which do not have a lot of RAM, you can review these settings [here](docker/assets/gitlab.rb) or use your own settings as explained in [Configure GitLab](#configure-gitlab). As a side note, *although is not advised,* you may still need to add a bit of SWAP (2GB recommended) to your device or have at least 2GB RAM, this can be achieved by using a USB Drive you have gathering dust somewhere; **DO NOT USE THE SD CARD FOR THIS TASK**.
 * This image does not apply sysctl parameters (see [wrapper file](docker/assets/wrapper#L90)), because it has been causing problems when starting in Docker Swarm, you can read the [reddit discussion](https://www.reddit.com/r/kubernetes/comments/7pr6r7/gitlab_ce_docker_image_for_arm/dtqemei/) about that. Get to the [Sysctl tunning](#sysctl-tunning) topic in order to know how to apply this on the host running GitLab.
-* This image builds and replaces the Mattermost binary delivered with the Omnibus package, which is only for AMD64 as stated in the [Docs](https://docs.gitlab.com/omnibus/gitlab-mattermost/#pre-requisite). The binary bundled within this image is built for ARM, feel to use Mattermost as you please.
+<!-- * This image builds and replaces the Mattermost binary delivered with the Omnibus package, which is only for AMD64 as stated in the [Docs](https://docs.gitlab.com/omnibus/gitlab-mattermost/#pre-requisite). The binary bundled within this image is built for ARM, feel to use Mattermost as you please. -->
 
 ## The GitLab Docker image can be run in multiple ways:
 
