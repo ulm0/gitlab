@@ -2,7 +2,8 @@ FROM registry.gitlab.com/ulm0/ubuntu:16.04-arm
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 SHELL ["/bin/sh", "-c"],
 # Install required packages
-RUN apt-get update -qq \
+RUN set -eux; \
+    apt-get update -qq \
     && apt-get upgrade -yqq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
       apt-transport-https \
@@ -23,9 +24,6 @@ COPY assets/ /assets/
 RUN /assets/setup
 # Allow to access embedded tools
 ENV PATH /opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:$PATH
-# # Patch mattermost
-# RUN rm -f /opt/gitlab/embedded/bin/mattermost
-# COPY mattermost /opt/gitlab/embedded/bin/mattermost
 # Resolve error: TERM environment variable not set.
 ENV TERM xterm
 # Expose web & ssh

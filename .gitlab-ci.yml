@@ -1,50 +1,21 @@
 stages:
-# - bin
-- build
-- patch
-- push
+  - test
+  - release
 
-.img: &imgJob
+.imgJob:
   image: docker:17.12
   services:
     - docker:17.12-dind
-  stage: build
   variables:
     DOCKER_DRIVER: overlay2
   tags:
     - docker
   before_script:
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  # dependencies:
-  #   - mattermost
-
-# mattermost:
-#   image: golang:1.11-alpine
-#   stage: bin
-#   tags:
-#     - docker
-#   variables:
-#     BUILD_DATE: $(date -u)
-#     BUILD_HASH: $CI_COMMIT_SHA
-#     BUILD_NUMBER: 4.8.1
-#     CGO_ENABLED: 0
-#     GOARCH: arm
-#     GOARM: 6
-#   script:
-#     - apk add --no-cache git build-base file
-#     - go get -d -v github.com/mattermost/mattermost-server/cmd/mattermost
-#     - cd /go/src/github.com/mattermost/mattermost-server/cmd/mattermost
-#     - go build -a -ldflags="-s -w" -installsuffix cgo
-#     - file mattermost
-#     - cd -
-#     - mkdir utils
-#     - cp /go/src/github.com/mattermost/mattermost-server/cmd/mattermost/mattermost utils/mattermost
-#   artifacts:
-#     paths:
-#       - utils/mattermost
 
 test:
-  <<: *imgJob
+  extends: .imgJob
+  stage: test
   only:
     - branches
   script:
@@ -56,7 +27,8 @@ test:
   allow_failure: true
 
 gitlab:
-  <<: *imgJob
+  extends: .imgJob
+  stage: release
   only:
     - tags
   script:
