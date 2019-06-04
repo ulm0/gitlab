@@ -15,7 +15,6 @@ mkfifo /opt/gitlab/sv/sshd/supervise/ok /opt/gitlab/sv/sshd/log/supervise/ok
 printf "#!/bin/sh\nexec 2>&1\numask 077\nexec /usr/sbin/sshd -D -f /assets/sshd_config -e" > /opt/gitlab/sv/sshd/run
 printf "#!/bin/sh\nexec svlogd -tt /var/log/gitlab/sshd" > /opt/gitlab/sv/sshd/log/run
 chmod a+x /opt/gitlab/sv/sshd/run /opt/gitlab/sv/sshd/log/run
-mkdir -p /var/run/sshd
 
 # Remove current gitlab.rb file
 rm -f /etc/gitlab/gitlab.rb
@@ -27,6 +26,9 @@ sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/co
 
 # Patch sysctl action for RPi image
 # sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
+
+# Set install type to docker
+echo 'gitlab-docker' > /opt/gitlab/embedded/service/gitlab-rails/INSTALLATION_TYPE
 
 # Create groups
 groupadd -g 998 git

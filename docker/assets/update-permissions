@@ -17,12 +17,24 @@ chown_if_exists()
 	fi
 }
 
+chmod_if_exists()
+{
+	# the last argument of chown is the file or path
+	path="${@:${#@}}"
+	if [ -e "$path" ]; then
+		chmod $@
+	else
+		echo "skipping, path does not exist: $path"
+	fi
+}
+
 # Fix GitLab permissions
 if id -u git; then
 	# Fix data storage
 	chown_if_exists -R git:git /var/opt/gitlab/.ssh
 	chown_if_exists -R git:git /var/opt/gitlab/.gitconfig
 	chown_if_exists -R git:git /var/opt/gitlab/git-data
+	chmod_if_exists 2770 /var/opt/gitlab/git-data/repositories
 	chown_if_exists -R git:git /var/opt/gitlab/gitlab-ci/builds
 	chown_if_exists -R git:git /var/opt/gitlab/gitlab-rails
 	chown_if_exists -R git:git /var/opt/gitlab/gitlab-shell
@@ -31,7 +43,7 @@ if id -u git; then
 	fi
 
 	# Fix log storage
-	chown_if_exists git /var/opt/gitlab/gitlab-workhorse
+	chown_if_exists git /var/log/gitlab/gitlab-workhorse
 	chown_if_exists git /var/log/gitlab/gitlab-rails
 	chown_if_exists git /var/log/gitlab/gitlab-shell
 	chown_if_exists git /var/log/gitlab/sidekiq
@@ -59,6 +71,8 @@ fi
 if id -u gitlab-prometheus; then
 	chown_if_exists -R gitlab-prometheus:gitlab-prometheus /var/opt/gitlab/prometheus
 	chown_if_exists gitlab-prometheus /var/log/gitlab/prometheus
+	chown_if_exists -R gitlab-prometheus:gitlab-prometheus /var/opt/gitlab/alertmanager
+	chown_if_exists gitlab-prometheus /var/log/gitlab/alertmanager
 fi
 
 # Fix redis storage and logs
@@ -73,4 +87,9 @@ fi
 # Fix registry storage
 if id -u registry; then
     chown_if_exists -R registry:git /var/opt/gitlab/gitlab-rails/shared/registry
+fi
+
+# Fix mattermost storage
+if id -u mattermost; then
+    chown_if_exists -R mattermost /var/opt/gitlab/mattermost
 fi
