@@ -2,11 +2,11 @@
 
 set -e
 
-source /etc/os-release
+source /etc/lsb-release
 source /RELEASE
 
 # Install GitLab
-DOWNLOAD_URL=${DOWNLOAD_URL} RELEASE_VERSION=${RELEASE_VERSION} /assets/download-package && dpkg -i /tmp/gitlab.deb && rm /tmp/gitlab.deb
+DOWNLOAD_URL=${DOWNLOAD_URL} TRIGGER_PRIVATE_TOKEN=${TRIGGER_PRIVATE_TOKEN} /assets/download-package && dpkg -i /tmp/gitlab.deb && rm /tmp/gitlab.deb
 rm -rf /var/lib/apt/lists/*
 
 # Create sshd daemon
@@ -23,9 +23,6 @@ rm -f /etc/gitlab/gitlab.rb
 sed -i "s/external_url 'GENERATED_EXTERNAL_URL'/# external_url 'GENERATED_EXTERNAL_URL'/" /opt/gitlab/etc/gitlab.rb.template
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/show_config.rb
 sed -i "s/\/etc\/gitlab\/gitlab.rb/\/assets\/gitlab.rb/" /opt/gitlab/embedded/cookbooks/gitlab/recipes/config.rb
-
-# Patch sysctl action for RPi image
-# sed -i -e 's/  | sysctl -e -p -//g' /opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/sysctl.rb
 
 # Set install type to docker
 echo 'gitlab-docker' > /opt/gitlab/embedded/service/gitlab-rails/INSTALLATION_TYPE

@@ -8,6 +8,9 @@ gitlab_rails['internal_api_url'] = 'http://localhost:8080/'
 postgresql['shared_buffers'] = '1MB'
 postgresql['autovacuum_max_workers'] = "2"
 
+# Disable Prometheus node_exporter inside Docker.
+node_exporter['enable'] = false
+
 ## To completely disable prometheus, and all of it's exporters, set to false
 prometheus_monitoring['enable'] = false
 
