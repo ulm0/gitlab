@@ -1,5 +1,6 @@
-FROM registry.gitlab.com/ulm0/ubuntu:16.04-arm
+FROM ubuntu:16.04
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
+ENV LANG=C.UTF-8
 SHELL ["/bin/sh", "-c"],
 # Install required packages
 RUN set -eux; \

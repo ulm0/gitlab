@@ -1,8 +1,10 @@
 stages:
+  - register
   - test
   - release
+  - unregister
 
-.imgJob:
+.imgjob:
   image: docker:17.12
   services:
     - docker:17.12-dind
@@ -10,28 +12,47 @@ stages:
     DOCKER_DRIVER: overlay2
   tags:
     - docker
+    - arm
   before_script:
-    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - mkdir utils
+    - apk add --no-cache make bash
+
+.runner:
+  image:
+    name: hashicorp/terraform:0.12.21
+    entrypoint: [""]
+  before_script:
+    - cd ci/runner
+    - terraform init
+
+register:
+  extends: .runner
+  stage: register
+  script:
+    - terraform apply -auto-approve
 
 test:
-  extends: .imgJob
+  extends: .imgjob
   stage: test
   only:
     - branches
+  except:
+    - master
   script:
-    - apk add --no-cache make bash
     - make build
-  when: manual
   allow_failure: true
 
 gitlab:
-  extends: .imgJob
+  extends: .imgjob
   stage: release
   only:
-    - tags
+    - master
   script:
-    - apk add --no-cache make bash
-    - make build
-    - make load
-    - make push
+    - make all
+
+unregister:
+  extends: .runner
+  stage: unregister
+  script:
+    - terraform destroy -auto-approve
+  when: always
