@@ -33,18 +33,6 @@ build: version
 	# Build the GitLab image
 	@./ci/build
 
-save:
-	# Save the image for patching
-	@./ci/save
-
-patch: save
-	# Patch image architecture
-	@./ci/patch
-
-load: patch
-	# Load modified image
-	@./ci/load
-
 push:
 	# Push image to Registries
 	@./ci/release
