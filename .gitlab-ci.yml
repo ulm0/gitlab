@@ -40,7 +40,6 @@ test:
     - master
   script:
     - make build
-  when: manual
   allow_failure: true
 
 gitlab:
