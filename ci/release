@@ -24,7 +24,7 @@ logout() {
     _docker logout "${1}"
 }
 
-if [[ "${CI_COMMIT_REF_NAME}" == "${CE_VERSION}" ]]; then
+if [[ "${CI_COMMIT_REF_NAME}" == "master" ]]; then
     tag "${IMAGE}:${CE_TAG}" "${IMAGE}:latest"
 fi
 
@@ -47,7 +47,7 @@ if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
 
     push "${IMAGE}:${CE_TAG}"
 
-    if [[ "${CI_COMMIT_REF_NAME}" == "${CE_VERSION}" ]]; then
+    if [[ "${CI_COMMIT_REF_NAME}" == "master" ]]; then
         push "${IMAGE}:latest"
     fi
 
