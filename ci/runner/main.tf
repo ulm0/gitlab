@@ -13,7 +13,7 @@ provider "scaleway" {
 }
 
 module "arm" {
-  source                 = "git::https://gitlab.com/ulm0/tf-ci-runner.git"
+  source                 = "git::https://gitlab.com/innersea/tf-modules/gitlab-runner.git"
   arch                   = "arm"
   bootscript_name_filter = "4.9 latest"
   gitlab_site            = var.gitlab_site
