@@ -12,7 +12,7 @@ provider "scaleway" {
   zone   = "fr-par-1"
 }
 
-module "arm" {
+module "runner" {
   source                 = "git::https://gitlab.com/innersea/tf-modules/gitlab-runner.git"
   arch                   = "arm"
   bootscript_name_filter = "4.9 latest"
