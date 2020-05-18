@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM  armhf/ubuntu:16.04
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 ENV LANG=C.UTF-8
 SHELL ["/bin/sh", "-c"],
