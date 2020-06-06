@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
-ENV LANG=C.UTF-8
 SHELL ["/bin/sh", "-c"],
+ENV LANG=C.UTF-8
 # Install required packages
 RUN set -eux; \
     apt-get update -qq \
@@ -9,6 +9,7 @@ RUN set -eux; \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
       apt-transport-https \
       ca-certificates \
+      less \
       nano \
       openssh-server \
       tzdata \
