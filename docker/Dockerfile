@@ -13,6 +13,7 @@ RUN set -eux; \
       nano \
       openssh-server \
       tzdata \
+      libatomic1 \
       vim \
       wget \
     && rm -rf /var/lib/apt/lists/* \
