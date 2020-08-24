@@ -5,7 +5,6 @@ ENV LANG=C.UTF-8
 # Install required packages
 RUN set -eux; \
     apt-get update -qq \
-    && apt-get upgrade -yqq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
       apt-transport-https \
       ca-certificates \
