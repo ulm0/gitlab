@@ -5,9 +5,9 @@ stages:
   - unregister
 
 .imgjob:
-  image: docker:17.12
+  image: docker:stable
   services:
-    - docker:17.12-dind
+    - docker:stable-dind
   variables:
     DOCKER_DRIVER: overlay2
   tags:
@@ -19,7 +19,7 @@ stages:
 
 .runner:
   image:
-    name: hashicorp/terraform:0.12.21
+    name: hashicorp/terraform:0.12.29
     entrypoint: [""]
   before_script:
     - cd ci/runner
