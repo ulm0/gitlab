@@ -25,11 +25,11 @@ stages:
     - cd ci/runner
     - terraform init
 
-register:
-  extends: .runner
-  stage: register
-  script:
-    - terraform apply -auto-approve
+# register:
+#   extends: .runner
+#   stage: register
+#   script:
+#     - terraform apply -auto-approve
 
 test:
   extends: .imgjob
@@ -50,9 +50,9 @@ gitlab:
   script:
     - make all
 
-unregister:
-  extends: .runner
-  stage: unregister
-  script:
-    - terraform destroy -auto-approve
-  when: always
+# unregister:
+#   extends: .runner
+#   stage: unregister
+#   script:
+#     - terraform destroy -auto-approve
+#   when: always
