@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM arm32v7/ubuntu
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 SHELL ["/bin/sh", "-c"],
 ENV LANG=C.UTF-8
