@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu
+FROM ubuntu:20.04
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 SHELL ["/bin/sh", "-c"],
 ENV LANG=C.UTF-8
@@ -23,7 +23,10 @@ RUN set -eux; \
 # Copy assets
 COPY RELEASE /
 COPY assets/ /assets/
-RUN /assets/setup
+# as gitlab-ci checks out with mode 666 we need to set permissions of the files we copied into the
+# container to a secure value. Issue #5956
+RUN chmod -R og-w /assets RELEASE ; \
+  /assets/setup
 # Allow to access embedded tools
 ENV PATH /opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:$PATH
 # Resolve error: TERM environment variable not set.
