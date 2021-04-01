@@ -19,7 +19,7 @@ stages:
 
 .runner:
   image:
-    name: hashicorp/terraform:0.12.29
+    name: hashicorp/terraform:0.14.9
     entrypoint: [""]
   before_script:
     - cd ci/runner
