@@ -2,5 +2,5 @@
 
 if [[ ${DOWNLOAD_URL} == *"raspbian"* ]]; then
     echo "Downloading GitLab CE from Package Cloud - ${RELEASE_VERSION}"
-    wget -q "${DOWNLOAD_URL}" -O /tmp/gitlab.deb
+    wget ${DOWNLOAD_URL} -O /tmp/gitlab.deb
 fi
